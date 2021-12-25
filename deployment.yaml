@@ -28,6 +28,19 @@ spec:
           value: "topic-dummy"
         - name: GOOGLE_CLOUD_PROJECT
           value: "eventos-319419"
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/opt/secrets/credentials.json"
+        volumeMounts:
+        - name: test
+          mountPath: "/opt/secrets"
+          readOnly: true
+      volumes:
+      - name: test
+        secret:
+          secretName: credentials-secret
+          items:
+            - key: sa_json
+              path: credentials.json
 ---
 apiVersion: v1
 kind: Service
